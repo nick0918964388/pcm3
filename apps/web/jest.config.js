@@ -20,11 +20,11 @@ const config = {
     '<rootDir>/app/**/*.(test|spec).{js,jsx,ts,tsx}',
     '<rootDir>/components/**/*.(test|spec).{js,jsx,ts,tsx}',
     '<rootDir>/src/**/*.(test|spec).{js,jsx,ts,tsx}',
+    '<rootDir>/tests/**/*.(test|spec).{js,jsx,ts,tsx}',
   ],
   testPathIgnorePatterns: [
     '<rootDir>/.next/',
     '<rootDir>/node_modules/',
-    '<rootDir>/tests/integration/'
   ],
   collectCoverageFrom: [
     'app/**/*.{js,ts,jsx,tsx}',
@@ -35,6 +35,10 @@ const config = {
     '!**/*.d.ts',
     '!**/node_modules/**',
   ],
+  transform: {
+    '^.+\\.ts$': 'ts-jest'
+  },
+  roots: ['<rootDir>']
 }
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
