@@ -46,3 +46,50 @@ export interface PaginatedResponse<T> extends ApiResponse<T[]> {
     pages: number;
   };
 }
+
+// WBS (Work Breakdown Structure) types
+export interface WBSItem {
+  id: number;
+  projectId: number;
+  parentId?: number;
+  code: string;
+  name: string;
+  description?: string;
+  levelNumber: number;
+  sortOrder: number;
+  createdAt: Date;
+  children?: WBSItem[];
+}
+
+export interface WBSChangeLog {
+  id: number;
+  wbsItemId: number;
+  changedBy: number;
+  changeType: 'CREATE' | 'UPDATE' | 'DELETE' | 'REORDER';
+  oldValue?: string;
+  newValue?: string;
+  changeReason?: string;
+  changedAt: Date;
+}
+
+export interface WBSCreateRequest {
+  projectId: number;
+  parentId?: number;
+  code: string;
+  name: string;
+  description?: string;
+  changeReason?: string;
+}
+
+export interface WBSUpdateRequest {
+  code?: string;
+  name?: string;
+  description?: string;
+  changeReason?: string;
+}
+
+export interface WBSReorderRequest {
+  newParentId?: number;
+  newSortOrder: number;
+  changeReason?: string;
+}
