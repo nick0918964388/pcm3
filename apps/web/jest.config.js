@@ -19,12 +19,19 @@ const config = {
     '<rootDir>/__tests__/**/*.(test|spec).{js,jsx,ts,tsx}',
     '<rootDir>/app/**/*.(test|spec).{js,jsx,ts,tsx}',
     '<rootDir>/components/**/*.(test|spec).{js,jsx,ts,tsx}',
+    '<rootDir>/src/**/*.(test|spec).{js,jsx,ts,tsx}',
+  ],
+  testPathIgnorePatterns: [
+    '<rootDir>/.next/',
+    '<rootDir>/node_modules/',
+    '<rootDir>/tests/integration/'
   ],
   collectCoverageFrom: [
     'app/**/*.{js,ts,jsx,tsx}',
     'components/**/*.{js,ts,jsx,tsx}',
     'lib/**/*.{js,ts,jsx,tsx}',
     'hooks/**/*.{js,ts,jsx,tsx}',
+    'src/**/*.{js,ts,jsx,tsx}',
     '!**/*.d.ts',
     '!**/node_modules/**',
   ],

@@ -3,6 +3,7 @@ const nextConfig = {
   transpilePackages: ['@pcm/shared'],
   output: 'standalone',
   experimental: {
+    appDir: true,
     turbo: {
       rules: {
         '*.svg': {

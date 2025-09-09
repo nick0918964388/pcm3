@@ -1,5 +1,11 @@
 import '@testing-library/jest-dom'
 
+// Optional: configure or set up a testing framework before each test.
+// If you delete this file, remove `setupFilesAfterEnv` from `jest.config.js`
+
+// Load environment variables for testing
+require('dotenv').config({ path: '.env.test' })
+
 // Mock IntersectionObserver
 global.IntersectionObserver = class IntersectionObserver {
   constructor() {}
@@ -32,4 +38,11 @@ global.ResizeObserver = class ResizeObserver {
   unobserve() {
     return null
   }
+}
+
+// Mock console.log for cleaner test output
+global.console = {
+  ...console,
+  // Uncomment to ignore specific log outputs
+  // log: jest.fn(),
 }

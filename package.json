@@ -14,9 +14,12 @@
     "lint": "npm run lint --workspace=apps/web",
     "type-check": "npm run type-check --workspace=apps/web",
     "test": "npm run test --workspace=apps/web",
+    "test:unit": "jest --config=apps/web/jest.config.js",
+    "test:integration": "jest --config=apps/web/jest.integration.config.js",
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down",
-    "docker:build": "docker-compose build"
+    "docker:build": "docker-compose build",
+    "db:seed": "node scripts/seed-runner.js"
   },
   "keywords": [
     "personnel-management",
@@ -28,7 +31,10 @@
   ],
   "author": "PCM Development Team",
   "license": "MIT",
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=8.0.0"
