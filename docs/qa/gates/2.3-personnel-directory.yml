@@ -1,0 +1,72 @@
+# Quality Gate Decision for Story 2-3
+schema: 1
+story: "2.3"
+story_title: "人員通訊錄管理系統"
+gate: "CONCERNS"
+status_reason: "Good implementation with comprehensive features, but missing authentication/authorization controls and rate limiting for production readiness"
+reviewer: "Quinn (Test Architect)"
+updated: "2025-09-09T12:30:00Z"
+
+waiver: { active: false }
+
+top_issues:
+  - id: "SEC-001"
+    severity: high
+    finding: "No authentication or authorization checks on API endpoints"
+    suggested_action: "Add middleware to verify user authentication and role-based access control"
+  - id: "SEC-002"
+    severity: medium
+    finding: "No rate limiting on API endpoints, vulnerable to abuse"
+    suggested_action: "Add rate limiting middleware to prevent API abuse"
+  - id: "SEC-003"
+    severity: medium
+    finding: "CSV parser vulnerable to injection attacks with malicious files"
+    suggested_action: "Add sanitization and validation for CSV parsing, consider using proven CSV library"
+  - id: "PERF-001"
+    severity: medium
+    finding: "Batch import processes files synchronously, could block server"
+    suggested_action: "Consider implementing async processing with job queue for large imports"
+  - id: "TEST-001"
+    severity: low
+    finding: "Missing frontend component tests and end-to-end integration tests"
+    suggested_action: "Add React Testing Library tests for components and E2E tests for user workflows"
+
+quality_score: 70
+expires: "2025-09-23T00:00:00Z"
+
+evidence:
+  tests_reviewed: 12
+  risks_identified: 5
+  trace:
+    ac_covered: [1, 2, 3, 4, 5, 6, 7]
+    ac_gaps: []
+
+nfr_validation:
+  security:
+    status: CONCERNS
+    notes: "Missing authentication/authorization and rate limiting. SQL injection protected by parameterized queries."
+  performance:
+    status: CONCERNS
+    notes: "Synchronous batch import could impact performance. Good database connection management."
+  reliability:
+    status: PASS
+    notes: "Comprehensive error handling and transaction management"
+  maintainability:
+    status: PASS
+    notes: "Well-structured code following established patterns, good separation of concerns"
+
+recommendations:
+  immediate:
+    - action: "Add authentication middleware to all API routes"
+      refs: ["apps/web/src/app/api/subcontractors/route.ts", "apps/web/src/app/api/personnel/route.ts"]
+    - action: "Implement rate limiting for API endpoints"
+      refs: ["apps/web/src/middleware.ts"]
+    - action: "Secure CSV parsing against injection attacks"
+      refs: ["apps/web/components/features/personnel-management/PersonnelImport.tsx:77-94"]
+  future:
+    - action: "Implement async job processing for large batch imports"
+      refs: ["apps/web/components/features/personnel-management/PersonnelImport.tsx"]
+    - action: "Add comprehensive frontend component tests"
+      refs: ["apps/web/__tests__/components/"]
+    - action: "Consider implementing data export functionality to complement import"
+      refs: ["apps/web/components/features/personnel-management/"]
